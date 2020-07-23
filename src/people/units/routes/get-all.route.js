@@ -3,7 +3,7 @@ const Path = require('path')
 const Fs = require('fs')
 const thisUnit = Path.dirname(Path.dirname(Path.dirname(__filename))).split(Path.sep).pop()
 const thisRoute = Path.basename(__filename).split('.')[0]
-const thisHandler = require(`../handlers/${thisRoute}.handlers.js`)
+const thisHandler = require('../handlers')
 
 const pathToValidation = `../../../domains/${thisUnit}/validations/${thisRoute}.validations.js`
 const validations = Fs.existsSync(Path.join(__dirname, pathToValidation))
@@ -14,10 +14,12 @@ const route = {
   method: 'get',
   path: `/${thisUnit}`,
   name: `${thisUnit}:${thisRoute}`,
-  version: '0.0.1',
-  handler: thisHandler.home,
+  preHandler: null,
+  handler: thisHandler.getAll,
   validate: validations,
-  needAuth: true
+  config: {
+    needAuth: true
+  }
 }
 
 module.exports = route

@@ -1,15 +1,15 @@
 const { table } = require('table')
 const head = [
   'method',
-  'path',
+  'url',
   'name',
-  'version',
   'authenticate'
 ]
 
 const routeToRow = route => {
-  const { method, path, name, version, needAuth } = route
-  return ([method, path, name, version, needAuth])
+  const { method, url, name, config } = route
+  const authenticate = config.needAuth ? config.needAuth : false
+  return ([method, url, name, authenticate])
 }
 
 const parseRoutesToRows = routes => {
