@@ -6,7 +6,7 @@ const Path = require('path')
 
 const getModelSchema = modelToGet => {
   const pluralNameModel = pluralize.plural(modelToGet)
-  const modelsPath = Path.join(__dirname, '..', '..', 'src', pluralNameModel, 'domains', 'models')
+  const modelsPath = Path.join(__dirname, '..', '..', 'domains', pluralNameModel, 'dao', 'models')
   const fileToRequire = Path.join(modelsPath, `${modelToGet}`)
   const model = require(fileToRequire)(Schema)
   return new Schema(model, { timestamps: true })

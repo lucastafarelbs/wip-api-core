@@ -1,12 +1,14 @@
+const { httpInternalServerErrorReponse, httpRemovedReponse } = require('../../../../support/reponser')
 const businessRules = require('../../dao/business-rules')
-
-const getAll = async function (request, reply) {
+const removeById = async function (request, reply) {
   try {
-    const found = await businessRules(this.dbConnection)('findById', 1)
-    reply.status(200).send({ data: found })
+    const id = request.params.id
+    const removed = await businessRules(this.dbConnection)('removeById', id, {})
+    return httpRemovedReponse(removed, reply)
   } catch (error) {
-    reply.status(500).send({ erro: error.message })
+    console.log(error)
+    return httpInternalServerErrorReponse(error.message, reply)
   }
 }
 
-module.exports = getAll
+module.exports = removeById

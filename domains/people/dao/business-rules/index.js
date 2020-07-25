@@ -10,6 +10,6 @@ const crud = {
 const applyModel = (connection, modelName) => getModel(connection, modelName)
 
 module.exports = connection =>
-  (func, id, object) => (crud[func])
-    ? crud[func](id, object)(applyModel(connection, modelName))
-    : Promise.reject(new Error(`Method ${func} not found`))
+  (crudFunction, id, object) => (crud[crudFunction])
+    ? crud[crudFunction](id, object)(applyModel(connection, modelName))
+    : Promise.reject(new Error(`Method ${crudFunction} not found`))

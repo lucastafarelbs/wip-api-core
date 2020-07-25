@@ -1,13 +1,13 @@
 const create = require('./create')
-const findById = require('./findById')
-const findAll = require('./findAll')
-const updateById = require('./updateById')
-const removeById = require('./removeById')
+const getById = require('./get-by-id')
+const getAll = require('./get-all')
+const updateById = require('./update-by-id')
+const removeById = require('./remove-by-id')
 
 const crudFactory = () => ({
   create,
-  findById,
-  findAll,
+  getById,
+  getAll,
   updateById,
   removeById
 })

@@ -12,7 +12,7 @@ const routes = [
     path: routePath,
     validate: validations.create,
     needAuth: true,
-    handler: handlers.getAll
+    handler: handlers.create
   },
   {
     method: 'get',
@@ -28,7 +28,7 @@ const routes = [
     path: `${routePath}/:id`,
     validate: null,
     needAuth: true,
-    handler: handlers.getAll
+    handler: handlers.getById
   },
   {
     method: 'put',
@@ -36,7 +36,7 @@ const routes = [
     path: `${routePath}/:id`,
     validate: validations.updateById,
     needAuth: true,
-    handler: handlers.getAll
+    handler: handlers.updateById
   },
   {
     method: 'delete',
@@ -44,7 +44,7 @@ const routes = [
     path: `${routePath}/:id`,
     validate: null,
     needAuth: true,
-    handler: handlers.getAll
+    handler: handlers.removeById
   }
 ]
 

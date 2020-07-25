@@ -1,6 +1,6 @@
 const errorResponse = (errors, message = '', status = 500, reply) => {
   const response = { message, errors }
-  return reply.stauts(status).send(response)
+  return reply.status(status).send(response)
 }
 
 const httpInternalServerErrorReponse = (errors = [], reply) => {

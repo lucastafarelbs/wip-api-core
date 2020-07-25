@@ -1,17 +1,14 @@
-// const businessRules = require('../../dao/business-rules')
-
-const getAll = async function (request, reply) {
+const { httpInternalServerErrorReponse, httpCreatedResponse } = require('../../../../support/reponser')
+const businessRules = require('../../dao/business-rules')
+const create = async function (request, reply) {
   try {
-    console.log('create')
-    // const found = await businessRules(this.dbConnection)('create', null, { ...request.body })
-    reply.status(200).send({
-      data: {}
-    })
+    const body = { ...request.body.value }
+    const created = await businessRules(this.dbConnection)('create', null, { ...body })
+    return httpCreatedResponse(created, reply)
   } catch (error) {
-    reply.status(500).send({
-      erro: error.message
-    })
+    console.log(error)
+    return httpInternalServerErrorReponse(error.message, reply)
   }
 }
 
-module.exports = getAll
+module.exports = create

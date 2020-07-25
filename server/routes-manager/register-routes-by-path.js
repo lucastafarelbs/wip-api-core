@@ -28,7 +28,8 @@ const registerRoutesByPath = (server, configs) => {
       preHandler: routePreHandlers,
       handler,
       schema: validate,
-      schemaCompiler: schema => (data = {}) => {
+      schemaCompiler: schema => (data) => {
+        data = data || {}
         const joiOptions = {
           abortEarly: false, // return all errors
           convert: true, // change data type of data to match type keyword
