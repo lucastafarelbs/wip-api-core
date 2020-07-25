@@ -4,7 +4,7 @@
   "description": "API CORE is a base project for RESTFul implementations",
   "main": "app.js",
   "scripts": {
-    "lint": "./node_modules/.bin/eslint ./src/**",
+    "lint": "./node_modules/.bin/eslint ./domains/**",
     "start": "node index.js",
     "dev": "./node_modules/.bin/nodemon index.js"
   },
@@ -36,6 +36,7 @@
     "dotenv": "^8.2.0",
     "fastify": "^2.15.1",
     "fastify-cors": "^3.0.3",
+    "fastify-server-timeout": "^0.1.1",
     "filter-files": "^0.4.0",
     "is-directory": "^0.3.1",
     "lodash": "^4.17.19",

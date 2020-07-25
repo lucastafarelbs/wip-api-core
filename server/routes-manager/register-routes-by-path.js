@@ -15,9 +15,9 @@ const registerRoutesByPath = (server, configs) => {
   const routes = LoadRoutesByPath(routesPath)
 
   const registeredRoutes = routes.map(route => {
-    const { method, handler, validate, config, preHandler, name } = route
+    const { method, handler, validate, needAuth, preHandler, name } = route
     const url = routesPrefix + route.path
-    const authenticationPreHandler = (config && config.needAuth) ? [preHandlers.authentication] : []
+    const authenticationPreHandler = needAuth ? [preHandlers.authentication] : []
     const routeConfigPreHandlers = getRouteConfigPreHandlers(preHandler)
     if (!routeConfigPreHandlers) throw new Error(`preHandler malformed, please check route declaration for: ${name}`)
     const routePreHandlers = [...authenticationPreHandler, ...routeConfigPreHandlers]
@@ -27,14 +27,23 @@ const registerRoutesByPath = (server, configs) => {
       url: url,
       preHandler: routePreHandlers,
       handler,
-      config,
       schema: validate,
-      schemaCompiler: schema => data => {
-        // console.log(data)
-        // console.log(schema)
-        const sanitizedSchema = (typeof schema === 'function') ? schema(data) : schema
-        // console.log(sanitizedSchema)
-        return sanitizedSchema.validate(data, { abortEarly: false })
+      schemaCompiler: schema => (data = {}) => {
+        const joiOptions = {
+          abortEarly: false, // return all errors
+          convert: true, // change data type of data to match type keyword
+          allowUnknown: false, // remove additional properties
+          noDefaults: false
+        }
+
+        const validationSchema = (typeof schema === 'function')
+          ? schema(data)
+          : schema
+
+        const result = validationSchema.validate(data, joiOptions)
+        if (!result.error) return { value: result }
+
+        return { error: { ...result.error } }
       }
     }
 

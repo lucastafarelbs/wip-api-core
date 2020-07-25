@@ -45,14 +45,15 @@ const init = async () => {
       name: DB_NAME || projectName
     }
     const dbConnection = await connectToMongoDB(databaseConfigs)
-    console.log(`Database is connect on ${dbConnection.host}:${dbConnection.port}`)
+    console.log(`Database is connected on ${dbConnection.host}:${dbConnection.port}`)
 
     const serverConfigs = {
       host: SERVER_HOST || '0.0.0.0',
       port: SERVER_PORT || 3000,
       routesPrefix: SERVER_API_VERSION || '/api/v1',
       displayRoutes: DISPLAY_ROUTES || false,
-      routesPath: Path.join(__dirname, 'src'),
+      routesPath: Path.join(__dirname, 'domains'),
+      serverTimeout: 5000,
       dbConnection
     }
 

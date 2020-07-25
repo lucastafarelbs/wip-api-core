@@ -1,6 +1,7 @@
+const { validRoles, defaultRole } = require('../../configs')
 const model = (Schema) => ({
-  name: { type: String, uppercase: true },
-  cpf: { type: String }
+  name: { type: String, uppercase: true, required: true },
+  // cpf: { type: String }
   // rg: { type: String },
   // note: { type: String },
   // gender: { type: String, required: true },
@@ -29,7 +30,7 @@ const model = (Schema) => ({
   //   city: { type: String, uppercase: true, default: '' },
   //   state: { type: String, uppercase: true, default: '' }
   // },
-  // role: { type: String, required: true },
+  role: { type: String, required: true, enum: validRoles, default: defaultRole }
   // age: { type: Number },
   // // Company,
   // cnpj: { type: String },

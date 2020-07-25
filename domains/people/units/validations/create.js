@@ -1,6 +1,6 @@
 const Joi = require('@hapi/joi')
 
-const validRoles = ['client', 'company']
+const { validRoles } = require('../../configs')
 
 const body = ({ role }) => Joi.object().keys({
   name: Joi.string().required(),

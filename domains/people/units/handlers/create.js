@@ -1,4 +1,4 @@
-// const businessRules = require('../../domains/business-rules')
+// const businessRules = require('../../dao/business-rules')
 
 const getAll = async function (request, reply) {
   try {

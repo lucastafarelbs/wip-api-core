@@ -7,8 +7,8 @@ const head = [
 ]
 
 const routeToRow = route => {
-  const { method, url, name, config } = route
-  const authenticate = config.needAuth ? config.needAuth : false
+  const { method, url, name, needAuth } = route
+  const authenticate = needAuth || false
   return ([method, url, name, authenticate])
 }
 

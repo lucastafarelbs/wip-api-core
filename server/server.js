@@ -1,4 +1,5 @@
 const fastify = require('fastify')
+const fastifyServerTimeout = require('fastify-server-timeout')
 const registerRoutesByPath = require('./routes-manager/register-routes-by-path.js')
 
 const start = async serverConfigs => {
@@ -10,6 +11,7 @@ const start = async serverConfigs => {
   const displayRoutes = serverConfigs.displayRoutes
   const routesPrefix = serverConfigs.routesPrefix
   const routesPath = serverConfigs.routesPath
+  const serverTimeout = serverConfigs.serverTimeout
   const dbConnection = serverConfigs.dbConnection
 
   const server = fastify({
@@ -19,6 +21,9 @@ const start = async serverConfigs => {
   if (dbConnection) {
     server.decorate('dbConnection', dbConnection)
   }
+
+  server.setErrorHandler(require('./handlers/validation-error'))
+  server.register(fastifyServerTimeout, { serverTimeout })
 
   registerRoutesByPath(server, { displayRoutes, routesPrefix, routesPath })
 
